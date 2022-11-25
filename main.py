@@ -75,6 +75,7 @@ async def on_message(message):
     if message.content.endswith('저전'):
         await message.channel.send('저' + message.content)
 
+
 @bot.command()
 # async def test(ctx):
 #     embed = discord.Embed(title='테스트', description='This message is for test', color=0x00ff00)
@@ -83,10 +84,10 @@ async def on_message(message):
 #     await ctx.send(embed=embed)
 # 봇 음악재생 명령어
 
-async def play(ctx, *, url):
+async def play(ctx, url):
     global vc
-    vc = ctx.message.author.voice.channel
-    if ctx.message.channel.id == 1045278508580098088:
+    vc = ctx.author.voice.channel
+    if ctx.channel.id == 1045278508580098088:
         try:
             await vc.connect()
         except:
@@ -99,7 +100,7 @@ async def play(ctx, *, url):
         FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',
                           'options': '-vn'}
 
-        if not vc.is_playing():
+        if not ctx.voice_client.is_playing():
             with YoutubeDL(YDL_OPTIONS) as ydl:
                 info = ydl.extract_info(url, download=False)
             URL = info['formats'][0]['url']
@@ -114,6 +115,7 @@ async def play(ctx, *, url):
     else:
         await ctx.send(embed=discord.Embed(title='흠...거기가 아닌데', description='음악 재생 채널로 가세요', color=0x26DBFF))
 
+
 # 봇 연결 해제 명령어
 @bot.command()
 async def stop(ctx):
@@ -121,6 +123,7 @@ async def stop(ctx):
         await vc.disconnect()
     except:
         await ctx.send(embed=discord.Embed(title='흠...', description='난 이미 없다', color=0x26DBFF))
+
 
 token = os.environ["BOT_TOKEN"]
 bot.run(token)
