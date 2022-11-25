@@ -92,7 +92,7 @@ async def play(ctx, url):
             await vc.connect()
         except:
             try:
-                await vc.move_to(ctx.message.author.voice.channel)
+                await vc.move_to(ctx.author.voice.channel)
             except:
                 await ctx.send(embed=discord.Embed(title='이런!', description='일단 보이스 채널에 들어오고 해야지', color=0x26DBFF))
 
@@ -100,7 +100,7 @@ async def play(ctx, url):
         FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',
                           'options': '-vn'}
 
-        if not vc.connect().is_playing():
+        if not vc.is_playing():
             with YoutubeDL(YDL_OPTIONS) as ydl:
                 info = ydl.extract_info(url, download=False)
             URL = info['formats'][0]['url']
