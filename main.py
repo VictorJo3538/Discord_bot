@@ -17,13 +17,13 @@ LDH = 322025515344986122
 KDG = 1045198399231754301
 
 
-@bot.event()
+@bot.listen("on_ready")
 async def on_ready():
     print(f"{bot.user.name} 작동 완료")
     await bot.change_presence(status=discord.Status.online, activity=discord.Game("리듬게임 생각"))
 
 
-@bot.event()
+@bot.listen('on_message')
 async def on_message(message):
     ch = bot.get_channel(1043962135744610445)
     # 권영훈 대답 리스트
