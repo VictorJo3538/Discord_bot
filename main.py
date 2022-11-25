@@ -85,10 +85,10 @@ async def on_message(message):
 
 async def play(ctx, *, url):
     global vc
-    vc = await ctx.message.author.voice.channel
+    vc = ctx.message.author.voice.channel
     if ctx.message.channel.id == 1045278508580098088:
         try:
-            vc.connect()
+            await vc.connect()
         except:
             try:
                 await vc.move_to(ctx.message.author.voice.channel)
