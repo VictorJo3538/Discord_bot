@@ -17,13 +17,13 @@ LDH = 322025515344986122
 KDG = 1045198399231754301
 
 
-@bot.listen("on_ready")
+@bot.event()
 async def on_ready():
     print(f"{bot.user.name} 작동 완료")
     await bot.change_presence(status=discord.Status.online, activity=discord.Game("리듬게임 생각"))
 
 
-@bot.listen('on_message')
+@bot.event()
 async def on_message(message):
     ch = bot.get_channel(1043962135744610445)
     # 권영훈 대답 리스트
@@ -87,7 +87,7 @@ async def on_message(message):
 async def play(ctx, url):
     global vc
     vc = ctx.author.voice.channel
-    if ctx.channel.id == 1045278508580098088:
+    if ctx.author.channel.id == 1045278508580098088:
         try:
             await vc.connect()
         except:
