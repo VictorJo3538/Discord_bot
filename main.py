@@ -127,4 +127,4 @@ async def stop(ctx):
         await ctx.send(embed=discord.Embed(title='흠...', description='난 이미 없다', color=0x26DBFF))
 
 token = os.environ["BOT_TOKEN"]
-bot.run('token')
+bot.run(token)
