@@ -86,13 +86,13 @@ async def on_message(message):
 
 async def play(ctx, url):
     global vc
-    vc = ctx.author.voice.channel
-    if ctx.author.channel.id == 1045278508580098088:
+    vc = ctx.voice.channel
+    if ctx.channel.id == 1045278508580098088:
         try:
             await vc.connect()
         except:
             try:
-                await vc.move_to(ctx.author.voice.channel)
+                await vc.move_to(ctx.voice.channel)
             except:
                 await ctx.send(embed=discord.Embed(title='이런!', description='일단 보이스 채널에 들어오고 해야지', color=0x26DBFF))
 
