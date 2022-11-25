@@ -84,11 +84,11 @@ async def on_message(message):
 #     await ctx.send(embed=embed)
 # 봇 음악재생 명령어
 
-async def play(ctx, url):
+async def play(ctx, *, url):
     global vc
-    vc = ctx.message.author.voice.channel
     if ctx.message.author.channel.id == 1045278508580098088:
         try:
+            vc = ctx.message.author.voice.channel
             await vc.connect()
         except:
             try:
