@@ -31,6 +31,7 @@ async def on_message(message):
                     'http://cdn.discordapp.com/attachments/1043962135744610445/1045305532329771018/image0.jpg',
                     'http://cdn.discordapp.com/attachments/1043962135744610445/1045305551950729276/image0.jpg',
                     'http://cdn.discordapp.com/attachments/1043962135744610445/1045305762009849906/image0.jpg',
+                    'http://cdn.discordapp.com/attachments/1043962135744610445/1045615262386372638/image0.jpg',
                     '깝 ㄴㄴ', 'ㅤ', '👺', 'ㅋㅋ', '너 뭐야', '그래', '싫음', '왜', '흠....', '흠집', '우어', '우어', '이거 진짜 흠인데',
                     '난 그럴수 있다 생각해', '아싸', '헉!', '와..', '얼탱이 없네 🤣', "I'm scared", '나는 두려워', '나이스']
     GYH_message = ['모야 이 짭은, 권영훈 안물']
@@ -100,7 +101,7 @@ async def play(ctx, *, url):
         FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',
                           'options': '-vn'}
 
-        if not ctx.voice_client.is_playing():
+        if not vc.is_playing():
             with YoutubeDL(YDL_OPTIONS) as ydl:
                 info = ydl.extract_info(url, download=False)
             URL = info['formats'][0]['url']
