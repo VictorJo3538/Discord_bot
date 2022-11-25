@@ -86,11 +86,10 @@ async def on_message(message):
 # 봇 음악재생 명령어
 
 async def play(ctx, *, url):
-    global vc
     if ctx.message.channel.id == 1045278508580098088:
         try:
-            vc = ctx.message.author.voice.channel
-            await vc.connect()
+            global vc
+            vc = await ctx.message.author.voice.channel.connect()
         except:
             try:
                 await vc.move_to(ctx.message.author.voice.channel)
@@ -126,5 +125,5 @@ async def stop(ctx):
         await ctx.send(embed=discord.Embed(title='흠...', description='난 이미 없다', color=0x26DBFF))
 
 
-token = os.environ["BOT_TOKEN"]
-bot.run(token)
+# token = os.environ["BOT_TOKEN"]
+bot.run('MTA0MzgzMDE2MzQyNDY3NzkwOA.GYrCJ8.trvZlSjdqGh7HH_nb_l7xX_zwKeTqT0t3Ye4hY')
