@@ -78,8 +78,6 @@ async def on_message(message):
     if message.content.endswith('저전'):
         await message.channel.send('저' + message.content)
 
-
-
     # 음악재생
     if message.channel.id == 1045278508580098088 and message.content.startswith("https"):
         url = message.content
@@ -96,6 +94,7 @@ async def on_message(message):
             YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'True'}
             FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',
                               'options': '-vn'}
+
             vc = await message.author.voice.channel.connect()
             with YoutubeDL(YDL_OPTIONS) as ydl:
                 info = ydl.extract_info(url, download=False)
@@ -121,7 +120,9 @@ async def on_message(message):
             # else:
             #     await message.channel.send(embed=discord.Embed(title='앗!', description='이미 음악이 재생 중입니다', color=0x26DBFF))
         else:
-            await message.channel.send(embed=discord.Embed(title='흠...거기가 아닌데', description='음악 재생 채널로 가세요', color=0x26DBFF))
+            await message.channel.send(
+                embed=discord.Embed(title='흠...거기가 아닌데', description='음악 재생 채널로 가세요', color=0x26DBFF))
+
 
 # @bot.command()
 # async def test(ctx):
@@ -131,9 +132,7 @@ async def on_message(message):
 #     await ctx.send(embed=embed)
 
 
-
-
-#봇 음악재생 명령어
+# 봇 음악재생 명령어
 # @bot.command()
 # async def play(ctx, *, url):
 #     global channel
@@ -175,6 +174,7 @@ async def stop(ctx):
         await vc.disconnect()
     except:
         await ctx.send(embed=discord.Embed(title='흠...', description='난 이미 없다', color=0x26DBFF))
+
 
 def start():
     try:
