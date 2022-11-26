@@ -99,7 +99,9 @@ async def on_message(message):
             FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',
                               'options': '-vn'}
 
-            if not message.guild.voice_client.is_playing():
+            if message.guild.voice_client.is_playing():
+                await message.channel.send(embed=discord.Embed(title='앗!', description='이미 음악이 재생 중입니다', color=0x26DBFF))
+            else:
                 with YoutubeDL(YDL_OPTIONS) as ydl:
                     info = ydl.extract_info(url, download=False)
                 URL = info['formats'][0]['url']
@@ -110,8 +112,6 @@ async def on_message(message):
                 thumbnail = 'https://img.youtube.com/vi/' + sliced_url + '/0.jpg'
                 embed.set_image(url=thumbnail)
                 await message.channel.send(embed=embed)
-            else:
-                await message.channel.send(embed=discord.Embed(title='앗!', description='이미 음악이 재생 중입니다', color=0x26DBFF))
         else:
             await message.channel.send(embed=discord.Embed(title='흠...거기가 아닌데', description='음악 재생 채널로 가세요', color=0x26DBFF))
 
