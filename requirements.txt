@@ -1,6 +1,4 @@
 discord.py==2.1.0
 ffmpeg==1.4
-ffmpeg-python==0.2.0
-ffmpeg-5.1.2-essentials_build
 youtube-dl==2021.12.17
 PyNaCl==1.5.0
