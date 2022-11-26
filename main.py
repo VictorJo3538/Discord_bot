@@ -155,7 +155,7 @@ async def on_message(message):
 #     else:
 #         await ctx.send(embed=discord.Embed(title='흠...거기가 아닌데', description='음악 재생 채널로 가세요', color=0x26DBFF))
 
-봇 연결 해제 명령어
+# 봇 연결 해제 명령어
 @bot.command()
 async def stop(ctx):
     try:
