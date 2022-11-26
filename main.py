@@ -176,16 +176,13 @@ async def stop(ctx):
         await ctx.send(embed=discord.Embed(title='흠...', description='난 이미 없다', color=0x26DBFF))
 
 
-# def start():
-#     try:
-#         token = os.environ["TOKEN"]
-#         bot.run(token)
-#     except:
-#         from TOKEN import load_token
-#         token = load_token()
-#         bot.run(token)
-#
-# start()
+def start():
+    try:
+        token = os.environ["TOKEN"]
+        bot.run(token)
+    except:
+        from TOKEN import load_token
+        token = load_token()
+        bot.run(token)
 
-token = os.environ["TOKEN"]
-bot.run(token)
+start()
