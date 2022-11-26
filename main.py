@@ -85,28 +85,31 @@ async def on_message(message):
         url = message.content
         global vc
         if message.channel.id == 1045278508580098088:
-            # try:
-            #     vc = await message.author.voice.channel.connect()
-            # except:
-            #     try:
-            #         await vc.move_to(message.author.voice.channel)
-            #     except:
-            #         await message.channel.send(embed=discord.Embed(title='이런!', description='일단 보이스 채널에 들어오고 해야지', color=0x26DBFF))
-            vc = await message.author.voice.channel.connect()
+            try:
+                vc = await message.author.voice.channel.connect()
+            except:
+                try:
+                    await vc.move_to(message.author.voice.channel)
+                except:
+                    await message.channel.send(embed=discord.Embed(title='이런!', description='일단 보이스 채널에 들어오고 해야지', color=0x26DBFF))
+
             YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'True'}
             FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',
                               'options': '-vn'}
 
-            with YoutubeDL(YDL_OPTIONS) as ydl:
-                info = ydl.extract_info(url, download=False)
-            URL = info['formats'][0]['url']
-            vc.play(FFmpegPCMAudio(URL, **FFMPEG_OPTIONS))
-            embed = discord.Embed(title="재생 중인 노래 다운", url=URL, description=f"{url}", color=0x00ff00)
-            embed.set_author(name='음악 재생중', icon_url='https://cdn-icons-png.flaticon.com/512/1941/1941064.png')
-            sliced_url = url[32:]
-            thumbnail = 'https://img.youtube.com/vi/' + sliced_url + '/0.jpg'
-            embed.set_image(url=thumbnail)
-            await message.channel.send(embed=embed)
+            if not vc.is_playing():
+                with YoutubeDL(YDL_OPTIONS) as ydl:
+                    info = ydl.extract_info(url, download=False)
+                URL = info['formats'][0]['url']
+                vc.play(FFmpegPCMAudio(URL, **FFMPEG_OPTIONS))
+                embed = discord.Embed(title="재생 중인 노래 다운", url=URL, description=f"{url}", color=0x00ff00)
+                embed.set_author(name='음악 재생중', icon_url='https://cdn-icons-png.flaticon.com/512/1941/1941064.png')
+                sliced_url = url[32:]
+                thumbnail = 'https://img.youtube.com/vi/' + sliced_url + '/0.jpg'
+                embed.set_image(url=thumbnail)
+                await message.channel.send(embed=embed)
+            else:
+                await message.channel.send(embed=discord.Embed(title='앗!', description='이미 음악이 재생 중입니다', color=0x26DBFF))
         else:
             await message.channel.send(embed=discord.Embed(title='흠...거기가 아닌데', description='음악 재생 채널로 가세요', color=0x26DBFF))
 
