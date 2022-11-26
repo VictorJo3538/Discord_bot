@@ -84,16 +84,15 @@ async def on_message(message):
     if message.channel.id == 1045278508580098088 and message.content.startswith("https"):
         url = message.content
         global vc
-        channel = message.author.voice.channel
         if message.channel.id == 1045278508580098088:
-            try:
-                vc = await channel.connect()
-            except:
-                try:
-                    await vc.move_to(message.author.voice.channel)
-                except:
-                    await message.channel.send(embed=discord.Embed(title='이런!', description='일단 보이스 채널에 들어오고 해야지', color=0x26DBFF))
-
+            # try:
+            #     vc = await message.author.voice.channel.connect()
+            # except:
+            #     try:
+            #         await vc.move_to(message.author.voice.channel)
+            #     except:
+            #         await message.channel.send(embed=discord.Embed(title='이런!', description='일단 보이스 채널에 들어오고 해야지', color=0x26DBFF))
+            vc = await message.author.voice.channel.connect()
             YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'True'}
             FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',
                               'options': '-vn'}
@@ -156,7 +155,7 @@ async def on_message(message):
 #     else:
 #         await ctx.send(embed=discord.Embed(title='흠...거기가 아닌데', description='음악 재생 채널로 가세요', color=0x26DBFF))
 
-# 봇 연결 해제 명령어
+봇 연결 해제 명령어
 @bot.command()
 async def stop(ctx):
     try:
