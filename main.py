@@ -1,7 +1,5 @@
 import os
-import random
 import time
-
 import discord
 from discord.ext import commands
 from discord import FFmpegPCMAudio
@@ -28,6 +26,7 @@ async def on_message(message):
     # 음악재생
     if message.channel.id == music_pl_ch and message.content.startswith("https"):
         await message.delete()
+        global temp
         await temp.delete()
         url = message.content
         global vc
@@ -38,9 +37,9 @@ async def on_message(message):
                 try:
                     await vc.move_to(message.author.voice.channel)
                 except:
-                    temp = await message.channel.send(embed=discord.Embed(title='이런!', description='일단 보이스 채널에 들어오고 해야지', color=0x26DBFF))
+                    warn = await message.channel.send(embed=discord.Embed(title='이런!', description='일단 보이스 채널에 들어오고 해야지', color=0x26DBFF))
                     time.sleep(3)
-                    await temp.delete()
+                    await warn.delete()
 
             YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'True'}
             FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',
